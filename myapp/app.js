@@ -25,14 +25,6 @@ app.use(
   })
 );
 
-app.get('/registerinvalid', (res, req) => {
-  res.sendFile(__dirname + '/views/Registerinvalid.html');
-})
-
-app.get('/registersucess', (res, req) => {
-  res.sendFile(__dirname + '/views/Registersucess.html');
-})
-
 app.get('/duperror', (req, res) => {
   res.sendFile(__dirname + '/views/Registeralreadyerror.html');
 })
@@ -64,13 +56,13 @@ app.post('/register', async (req, res) => {
         return res.end()
       }
       else{
-        res.write('/registersucess');
+        res.write('/login');
         return res.end();
       }
     });
   }
   else{
-    res.write('/registerinvalid');
+    res.write('/register');
       res.end();
   }
 })
@@ -182,4 +174,7 @@ app.get('/orders', (req, res) => {
   
 })
 
+app.get("*", function (req, res) {
+  res.status(404).send("404 Not Found Error. Type the right url");
+});
 module.exports = app;
