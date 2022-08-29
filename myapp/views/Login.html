@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Auth Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <h2>Login</h2><br>
+    <div class="login">
+      <form id="login">
+        <label>Your Username</label>
+        <input type="text" id="username">
+        <br><br>
+        <label>Your Password</label>
+        <input type="text" id="password">
+        <br><br>
+        <input type="Button" id="btn" value="Log In">
+        <br><br>
+      </form>
+
+      <br><br><a href="http://localhost:3000/homepage">Home</a>
+    <br><br><a href="http://localhost:3000/register">Register</a>
+    </div>
+    <script>
+        $(document).ready(function () {
+          const host = "http://localhost:3000";
+      
+          $('#btn').on('click', function () {
+            $.ajax({
+              url: `${host}/login`,
+              type: "POST",
+              data: JSON.stringify({
+                username: $('#username').val(),
+                password: $('#password').val()
+              }),
+              contentType: "application/json; charset=utf-8",
+              success: function (res) {
+                // store the session cookie
+                
+                window.location = `${host}${res}`;
+                // console.log(res);
+      
+              },
+              error: function (e) {
+                console.log(e);
+              }
+            });
+          });
+        });
+        </script>
+</body>
+
